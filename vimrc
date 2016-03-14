@@ -24,7 +24,6 @@ endfunction
 au BufEnter /* call LoadCscope()
 "nerdtree plugin setting
 nnoremap <silent> <F2> :NERDTreeToggle<CR>
-autocmd vimenter * NERDTree
 auto StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
@@ -40,6 +39,9 @@ let g:NERDTreeIndicatorMapCustom = {
     \ "Clean"     : "✔︎",
     \ "Unknown"   : "?"
     \ }
+"nerdtree-tabs plugin setting
+let g:nerdtree_tabs_open_on_console_startup = 1
+let g:nerdtree_tabs_smart_startup_focus = 1
 "tagbar plugin setting
 nmap <silent> <F3> :TagbarToggle<CR>
 let g:tagbar_ctags_bin = '/usr/local/bin/ctags'
@@ -49,7 +51,6 @@ let g:cpp_class_scope_highlight = 1
 let g:cpp_experimental_template_highlight = 1
 "easymotion plugin setting
 let g:EasyMotion_leader_key = 'f'
-map <Leader> <Plug>(easymotion-prefix)
 map  <Leader>f <Plug>(easymotion-bd-f)
 nmap <Leader>f <Plug>(easymotion-overwin-f)
 "nmap s <Plug>(easymotion-overwin-f2)
