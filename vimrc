@@ -9,6 +9,13 @@ set softtabstop=4
 set showmatch
 set guifont=Source_Code_Pro:h14
 set hlsearch
+
+
+"jump to end of line in insert mode
+inoremap <C-e> <Esc>A
+"jump to beginning of line in insert mode
+inoremap <C-a> <Esc>I
+
 "tag file path
 set tags=./tags,tags;$HOME
 "cscope auotloading
@@ -50,13 +57,13 @@ let g:tagbar_width = 30
 let g:cpp_class_scope_highlight = 1
 let g:cpp_experimental_template_highlight = 1
 "easymotion plugin setting
-let g:EasyMotion_leader_key = 'f'
-map  <Leader>f <Plug>(easymotion-bd-f)
-nmap <Leader>f <Plug>(easymotion-overwin-f)
+let g:EasyMotion_leader_key = '<Space>'
+"map  <Leader>f <Plug>(easymotion-bd-f)
+"nmap <Leader>f <Plug>(easymotion-overwin-f)
 "nmap s <Plug>(easymotion-overwin-f2)
-map <Leader>L <Plug>(easymotion-bd-jk)
-nmap <Leader>L <Plug>(easymotion-overwin-line)
-map  <Leader>w <Plug>(easymotion-bd-w)
-nmap <Leader>w <Plug>(easymotion-overwin-w)
+"map <Leader>L <Plug>(easymotion-bd-jk)
+"nmap <Leader>L <Plug>(easymotion-overwin-line)
+"map  <Leader>w <Plug>(easymotion-bd-w)
+"nmap <Leader>w <Plug>(easymotion-overwin-w)
 "toggle search highlight
 nnoremap <silent> <F8> :set hlsearch!<CR>
