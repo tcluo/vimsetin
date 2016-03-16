@@ -29,6 +29,11 @@ function! LoadCscope()
   endif
 endfunction
 au BufEnter /* call LoadCscope()
+set cscopequickfix=s-,c-,d-,i-,t-,e-
+augroup qf
+	autocmd!
+	autocmd QuickFixCmdPost * cwindow
+augroup END
 "nerdtree plugin setting
 nnoremap <silent> <F2> :NERDTreeToggle<CR>
 auto StdinReadPre * let s:std_in=1
