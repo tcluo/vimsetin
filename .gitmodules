@@ -37,3 +37,6 @@
 [submodule "bundle/vim-easygrep"]
 	path = bundle/vim-easygrep
 	url = https://github.com/dkprice/vim-easygrep.git
+[submodule "bundle/YouCompleteMe"]
+	path = bundle/YouCompleteMe
+	url = https://github.com/Valloric/YouCompleteMe.git
