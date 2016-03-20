@@ -10,6 +10,8 @@ set showmatch
 set guifont=Source_Code_Pro:h14
 set hlsearch
 
+"set background=dark
+"colorscheme desert_thl
 
 "jump to end of line in insert mode
 inoremap <C-e> <Esc>A
