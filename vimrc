@@ -38,9 +38,6 @@ augroup qf
 augroup END
 "nerdtree plugin setting
 nnoremap <silent> <F2> :NERDTreeToggle<CR>
-auto StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 "nerdtree-git plugin setting
 let g:NERDTreeIndicatorMapCustom = {
     \ "Modified"  : "✹",
@@ -53,9 +50,6 @@ let g:NERDTreeIndicatorMapCustom = {
     \ "Clean"     : "✔︎",
     \ "Unknown"   : "?"
     \ }
-"nerdtree-tabs plugin setting
-let g:nerdtree_tabs_open_on_console_startup = 1
-let g:nerdtree_tabs_smart_startup_focus = 1
 "tagbar plugin setting
 nmap <silent> <F3> :TagbarToggle<CR>
 let g:tagbar_ctags_bin = '/usr/local/bin/ctags'
