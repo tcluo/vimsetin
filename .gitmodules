@@ -43,3 +43,6 @@
 [submodule "bundle/YCM-Generator"]
 	path = bundle/YCM-Generator
 	url = https://github.com/rdnetto/YCM-Generator.git
+[submodule "bundle/a.vim"]
+	path = bundle/a.vim
+	url = https://github.com/vim-scripts/a.vim.git
