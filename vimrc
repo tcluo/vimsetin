@@ -1,5 +1,6 @@
 execute pathogen#infect()
 syntax on
+filetype plugin on
 filetype plugin indent on
 set nocompatible
 set number
@@ -68,7 +69,6 @@ let g:EasyMotion_leader_key = '<Space>'
 "nmap <Leader>w <Plug>(easymotion-overwin-w)
 "toggle search highlight
 nnoremap <silent> <F8> :set hlsearch!<CR>
-"YouCompleteMe setting
-let g:ycm_global_ycm_extra_conf = '~/vimsetin/.ycm_extra_conf.py'
-
+"dwm plugin setting
+set mouse=a "enable the use of the mouse in all modes
 

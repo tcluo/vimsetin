@@ -46,3 +46,12 @@
 [submodule "bundle/a.vim"]
 	path = bundle/a.vim
 	url = https://github.com/vim-scripts/a.vim.git
+[submodule "bundle/c.vim"]
+	path = bundle/c.vim
+	url = https://github.com/vim-scripts/c.vim.git
+[submodule "bundle/dwm.vim"]
+	path = bundle/dwm.vim
+	url = https://github.com/spolu/dwm.vim.git
+[submodule "bundle/file-line"]
+	path = bundle/file-line
+	url = https://github.com/bogado/file-line.git
