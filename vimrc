@@ -12,7 +12,7 @@ set guifont=Source_Code_Pro:h14
 set hlsearch
 
 "set background=dark
-"colorscheme desert_thl
+colorscheme twilighted
 
 "jump to end of line in insert mode
 inoremap <C-e> <Esc>A
@@ -71,4 +71,6 @@ let g:EasyMotion_leader_key = '<Space>'
 nnoremap <silent> <F8> :set hlsearch!<CR>
 "dwm plugin setting
 set mouse=a "enable the use of the mouse in all modes
-
+"color_coded setting
+let g:color_coded_enabled = 1
+let g:color_coded_filetypes = ['c', 'cpp']
