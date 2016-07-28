@@ -72,3 +72,18 @@ nnoremap <silent> <F8> :set hlsearch!<CR>
 "dwm plugin setting
 set mouse=a "enable the use of the mouse in all modes
 
+"tab operation
+"nnoremap <C-[> :tabprevious<CR>
+"nnoremap <C-]> :tabnext<CR>
+
+" youcompleteme plugin setting
+let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
+let g:ycm_confirm_extra_conf = 0
+let g:ycm_error_symbol = '>>'
+let g:ycm_warning_symbol = '>*'
+nnoremap <Leader>] :YcmCompleter GoTo<CR>
+nnoremap <Leader>gi :YcmCompleter GoToInclude<CR>
+nnoremap <Leader>gd :YcmCompleter GoToDeclaration<CR>
+nnoremap <Leader>gf :YcmCompleter GoToDefinition<CR>
+nnoremap <Leader>ge :YcmCompleter GoToDefinitionElseDeclaration<CR>
+nmap <F4> :YcmDiags<CR>
