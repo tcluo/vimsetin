@@ -71,6 +71,9 @@ let g:EasyMotion_leader_key = '<Space>'
 nnoremap <silent> <F8> :set hlsearch!<CR>
 "dwm plugin setting
 set mouse=a "enable the use of the mouse in all modes
+"color_coded setting
+let g:color_coded_enabled = 1
+let g:color_coded_filetypes = ['c', 'cpp']
 
 "tab operation
 "nnoremap <C-[> :tabprevious<CR>
