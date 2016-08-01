@@ -11,6 +11,8 @@ set showmatch
 set guifont=Source_Code_Pro:h14
 set hlsearch
 
+set clipboard=unnamed
+
 "set background=dark
 "colorscheme desert_thl
 
