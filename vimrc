@@ -92,3 +92,8 @@ nnoremap <Leader>gd :YcmCompleter GoToDeclaration<CR>
 nnoremap <Leader>gf :YcmCompleter GoToDefinition<CR>
 nnoremap <Leader>ge :YcmCompleter GoToDefinitionElseDeclaration<CR>
 nmap <F4> :YcmDiags<CR>
+
+" ListToggle setting
+let g:lt_location_list_toggle_map = '<leader>l'
+let g:lt_quickfix_list_toggle_mape = '<leader>q'
+let g:lt_height = 10
