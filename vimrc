@@ -13,6 +13,9 @@ set hlsearch
 
 set clipboard=unnamed
 
+"Normal tab for makefile
+autocmd FileType make set noexpandtab
+
 "set background=dark
 "colorscheme desert_thl
 
