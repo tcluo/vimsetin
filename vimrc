@@ -1,32 +1,108 @@
-execute pathogen#infect()
-syntax on
+" Specify a directory for plugins (for Neovim: ~/.local/share/nvim/plugged)
+call plug#begin('~/.vim/plugged')
+
+" Make sure you use single quotes
+
+" Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
+Plug 'junegunn/vim-easy-align'
+
+" Any valid git URL is allowed
+Plug 'https://github.com/junegunn/vim-github-dashboard.git'
+
+" Multiple Plug commands can be written in a single line using | separators
+Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+
+" On-demand loading
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
+
+" Using a non-master branch
+Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
+
+" Using a tagged release; wildcard allowed (requires git 1.9.2 or above)
+Plug 'fatih/vim-go', { 'tag': '*' }
+
+" Plugin options
+Plug 'nsf/gocode', { 'tag': 'v.20150303', 'rtp': 'vim' }
+
+" Plugin outside ~/.vim/plugged with post-update hook
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+
+" Unmanaged plugin (manually installed and updated)
+Plug '~/my-prototype-plugin'
+
+" A class outline viewer for Vim
+Plug 'majutsushi/tagbar'
+
+" A code-completion engine for Vim
+Plug 'Valloric/YouCompleteMe'
+
+" Additional Vim C++ syntax highlight
+Plug 'octol/vim-cpp-enhanced-highlight'
+
+" Comment funtions
+Plug 'scrooloose/nerdcommenter'
+
+" Initialize plugin system
+call plug#end()
+
+" File type detection
 filetype plugin on
-filetype plugin indent on
+
+" Not compatible with VI
 set nocompatible
+
+" Display line number
 set number
+
+" Toggle line number
+nnoremap <F1> :set nonumber!<CR>
+
+" To insert space characters whenever the tab key is pressed 
+set expandtab
+
+" Number of space characters inserted when the tab key is pressed
 set tabstop=4
-set shiftwidth=4
 set softtabstop=4
-set showmatch
-set guifont=Source_Code_Pro:h14
+
+" Number of space characters inserted for indentation
+set shiftwidth=4
+
+" Ignore case sensitive
+set ic
+
+" Search highlight
 set hlsearch
 
+" Show search results in realtime
+set incsearch
+
+" Toggle search highlight
+nnoremap <silent> <F8> :set hlsearch!<CR>
+
+" Display line number, the colume number, the virtual column number and the
+" relative position of the cursor in the file
+set ruler
+
+" Jump cursor to the matching paren
+set showmatch
+
+" Copy to system clipboard
 set clipboard=unnamed
 
-"Normal tab for makefile
+" Normal tab for makefile
 autocmd FileType make set noexpandtab
 
-"set background=dark
-"colorscheme desert_thl
-
-"jump to end of line in insert mode
+" Jump to end of line in insert mode
 inoremap <C-e> <Esc>A
-"jump to beginning of line in insert mode
+
+" Jump to beginning of line in insert mode
 inoremap <C-a> <Esc>I
 
-"tag file path
+" Auto search tag file
 set tags=./tags,tags;$HOME
-"cscope auotloading
+
+" Cscope auotloading
 function! LoadCscope()
   let db = findfile("cscope.out", ".;")
   if (!empty(db))
@@ -42,9 +118,11 @@ augroup qf
 	autocmd!
 	autocmd QuickFixCmdPost * cwindow
 augroup END
-"nerdtree plugin setting
+
+" Nerdtree plugin settings
 nnoremap <silent> <F2> :NERDTreeToggle<CR>
-"nerdtree-git plugin setting
+
+" Nerdtree-git plugin settings
 let g:NERDTreeIndicatorMapCustom = {
     \ "Modified"  : "✹",
     \ "Staged"    : "✚",
@@ -56,14 +134,17 @@ let g:NERDTreeIndicatorMapCustom = {
     \ "Clean"     : "✔︎",
     \ "Unknown"   : "?"
     \ }
-"tagbar plugin setting
+
+" Tagbar plugin settings
 nmap <silent> <F3> :TagbarToggle<CR>
 let g:tagbar_ctags_bin = '/usr/local/bin/ctags'
 let g:tagbar_width = 30
-"cpp-enhanced-highlight plugin setting
+
+" Cpp-enhanced-highlight plugin settings
 let g:cpp_class_scope_highlight = 1
 let g:cpp_experimental_template_highlight = 1
-"easymotion plugin setting
+
+" Easymotion plugin settings
 let g:EasyMotion_leader_key = '<Space>'
 "map  <Leader>f <Plug>(easymotion-bd-f)
 "nmap <Leader>f <Plug>(easymotion-overwin-f)
@@ -72,19 +153,8 @@ let g:EasyMotion_leader_key = '<Space>'
 "nmap <Leader>L <Plug>(easymotion-overwin-line)
 "map  <Leader>w <Plug>(easymotion-bd-w)
 "nmap <Leader>w <Plug>(easymotion-overwin-w)
-"toggle search highlight
-nnoremap <silent> <F8> :set hlsearch!<CR>
-"dwm plugin setting
-set mouse=a "enable the use of the mouse in all modes
-"color_coded setting
-let g:color_coded_enabled = 1
-let g:color_coded_filetypes = ['c', 'cpp']
 
-"tab operation
-"nnoremap <C-[> :tabprevious<CR>
-"nnoremap <C-]> :tabnext<CR>
-
-" youcompleteme plugin setting
+" Youcompleteme plugin settings
 let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
 let g:ycm_confirm_extra_conf = 0
 let g:ycm_error_symbol = '>>'
@@ -96,16 +166,15 @@ nnoremap <Leader>gf :YcmCompleter GoToDefinition<CR>
 nnoremap <Leader>ge :YcmCompleter GoToDefinitionElseDeclaration<CR>
 nmap <F4> :YcmDiags<CR>
 
-" ListToggle setting
-let g:lt_location_list_toggle_map = '<leader>l'
-let g:lt_quickfix_list_toggle_mape = '<leader>q'
-let g:lt_height = 10
+" Vim-cpp-enhanced-highlight settings
+let g:cpp_class_scope_hightlight = 1
+let g:cpp_experimental_template_highlight = 1
 
-" syntastic
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
-"let g:syntastic_always_populate_loc_list = 1
-"let g:syntastic_auto_loc_list = 1
-"let g:syntastic_check_on_open = 1
-"let g:syntastic_check_on_wq = 0
+" Nerdcommenter plugin settings
+let g:NERDSpaceDelims = 1
+let g:NERDCompactSexyComs = 1
+let g:NERDDefaultAlign = 'left'
+let g:NERDAltDelims_java = 1
+let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
+let g:NERDCommentEmptyLines = 1
+let g:NERDTrimTrailingWhitespace = 1
