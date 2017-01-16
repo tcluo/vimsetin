@@ -46,6 +46,9 @@ Plug 'scrooloose/nerdcommenter'
 " Full path fuzzy finder for Vim
 Plug 'ctrlpvim/ctrlp.vim'
 
+" Vim motion on speed
+Plug 'easymotion/vim-easymotion'
+
 " Initialize plugin system
 call plug#end()
 
