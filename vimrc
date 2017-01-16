@@ -43,6 +43,9 @@ Plug 'octol/vim-cpp-enhanced-highlight'
 " Comment funtions
 Plug 'scrooloose/nerdcommenter'
 
+" Full path fuzzy finder for Vim
+Plug 'ctrlpvim/ctrlp.vim'
+
 " Initialize plugin system
 call plug#end()
 
@@ -178,3 +181,10 @@ let g:NERDAltDelims_java = 1
 let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
 let g:NERDCommentEmptyLines = 1
 let g:NERDTrimTrailingWhitespace = 1
+
+" Ctrlp plugin settings
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_working_path_mode = 'ra'
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
