@@ -31,6 +31,9 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 " Unmanaged plugin (manually installed and updated)
 Plug '~/my-prototype-plugin'
 
+"***********************
+"* Plugins added by me * 
+"***********************
 " A class outline viewer for Vim
 Plug 'majutsushi/tagbar'
 
@@ -58,58 +61,45 @@ Plug 'altercation/vim-colors-solarized'
 " Switch between companion source files
 Plug 'derekwyatt/vim-fswitch'
 
+" Visually display indent levels in code
+Plug 'nathanaelkane/vim-indent-guides'
+
 " Initialize plugin system
 call plug#end()
 
 " Let vimrc change work immediately
 autocmd BufWritePost $MYVIMRC source $MYVIMRC
 
+""""""""""""""""""""""""
+" Environment settings "
+""""""""""""""""""""""""
 " File type detection
+filetype on
+
+" Load plugins based on file type
 filetype plugin on
 
 " Not compatible with VI
 set nocompatible
 
-" Set color scheme
-set background=dark
-colorscheme solarized
+" Set session options
+set sessionoptions="blank,buffers,globals,localoptions,tabpages,sesdir,folds,help,options,resize,winops,winsize"
 
-" Set vim command autocomplete
-set wildmenu
+" Keep undo history
+set undodir=~/.undo_history
+set undofile
 
-" Enable backspace
-set backspace=indent,eol,start
+" Save session hotkey
+map <leader>ss :mksession! my.vim<CR> :wviminfo! my.viminfo<CR>
 
+" Resume session hotkey
+map <leader>rs :source my.vim<CR> :rviminfo my.viminfo<CR>
+
+""""""""""""""
+" Visibility "
+""""""""""""""
 " Display line number
 set number
-
-" Toggle line number
-nnoremap <F1> :set nonumber!<CR>
-
-" To insert space characters whenever the tab key is pressed 
-set expandtab
-
-" Number of space characters inserted when the tab key is pressed
-set tabstop=4
-set softtabstop=4
-
-" Enable indent
-filetype indent on
-
-" Number of space characters inserted for indentation
-set shiftwidth=4
-
-" Search highlight
-set hlsearch
-
-" Show search results in realtime
-set incsearch
-
-" Ingore search case sensitive
-set ignorecase
-
-" Toggle search highlight
-nnoremap <silent> <F8> :set hlsearch!<CR>
 
 " Display line number, the colume number, the virtual column number and the
 " relative position of the cursor in the file
@@ -118,14 +108,17 @@ set ruler
 " Highlighting cursor
 set cursorline
 
-" Jump cursor to the matching paren
-set showmatch
+" Search highlight
+set hlsearch
 
-" Copy to system clipboard
-set clipboard=unnamed
+" Toggle search highlight
+nnoremap <silent> <F8> :set hlsearch!<CR>
 
-" Normal tab for makefile
-autocmd FileType make set noexpandtab
+" Switch off scroll bar
+set guioptions-=l
+set guioptions-=L
+set guioptions-=r
+set guioptions-=R
 
 " Open a vertical split on the right side
 set splitright
@@ -133,6 +126,61 @@ set splitright
 " Set font
 set guifont=Consolas
 
+" Syntax highlighting
+syntax enable
+syntax on
+
+" Set color scheme
+set background=dark
+colorscheme solarized
+if has('gui_running')
+    set background=light
+else
+    set background=dark
+endif
+
+""""""""""""""
+" Formatting "
+""""""""""""""
+" Smart indent for different file type
+filetype indent on
+
+" To insert space characters whenever the tab key is pressed 
+set expandtab
+
+" Normal tab for makefile
+autocmd FileType make set noexpandtab
+
+" Number of space characters inserted when the tab key is pressed
+set tabstop=4
+
+" Number of space characters inserted for indentation
+set shiftwidth=4
+
+" Jump cursor to the matching paren
+set showmatch
+
+"""""""""""
+" Edition "
+"""""""""""
+" Show search results in realtime
+set incsearch
+
+" Ingore search case sensitive
+set ignorecase
+
+" Set vim command autocomplete
+set wildmenu
+
+" Copy to system clipboard
+set clipboard=unnamed
+
+" Enable backspace
+set backspace=indent,eol,start
+
+""""""""""""""
+" Navigation "
+""""""""""""""
 " Window splits navigation
 nnoremap <S-Up> <c-w>k
 nnoremap <S-Down> <c-w>j
@@ -159,10 +207,16 @@ augroup qf
 	autocmd QuickFixCmdPost * cwindow
 augroup END
 
+"""""""""""""""""""
+" Plugin settings "
+"""""""""""""""""""
 " Nerdtree plugin settings
-nnoremap <silent> <F2> :NERDTreeToggle<CR>
-
-" Nerdtree-git plugin settings
+nmap <silent> <Leader>ft :NERDTreeToggle<CR>
+let NERTTreeWinPos = "right"
+let NERDTreeWinSize = 32
+let NERDTreeShowHidden = 1
+let NERDTreeAutoDeleteBuffer = 1
+let NERDTreeMinimalUT = 1
 let g:NERDTreeIndicatorMapCustom = {
     \ "Modified"  : "✹",
     \ "Staged"    : "✚",
@@ -176,7 +230,7 @@ let g:NERDTreeIndicatorMapCustom = {
     \ }
 
 " Tagbar plugin settings
-nmap <silent> <F3> :TagbarToggle<CR>
+nmap <silent> <Leader>tt :TagbarToggle<CR>
 let tagbar_left = 1
 let g:tagbar_ctags_bin = '/usr/local/bin/ctags'
 let g:tagbar_width = 32 
@@ -262,3 +316,12 @@ let g:ctrlp_reuse_window = 'startify'
 
 " vim-fswitch plugin settings
 nmap <silent> <Leader>sw :FSHere<CR>
+
+" Solorized plugin settings
+let g:solarized_visibility = "high"
+let g:solarized_contrast = "high"
+
+" Vim-indent-guides plugin settings
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_start_level = 2
+let g:indent_guides_guide_size = 1
