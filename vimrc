@@ -51,9 +51,7 @@ Plug 'easymotion/vim-easymotion'
 
 " Vim airline
 Plug 'vim-airline/vim-airline'
-
-" Extra highlighting
-Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'vim-airline/vim-airline-themes'
 
 " Color scheme
 Plug 'altercation/vim-colors-solarized'
@@ -64,6 +62,15 @@ Plug 'derekwyatt/vim-fswitch'
 " Visually display indent levels in code
 Plug 'nathanaelkane/vim-indent-guides'
 
+" Visually select regions
+Plug 'terryma/vim-expand-region'
+
+" Showing git status flags
+Plug 'Xuyuanp/nerdtree-git-plugin'
+
+" libclang-based highlighting in C/C++
+Plug 'jeaye/color_coded'
+
 " Initialize plugin system
 call plug#end()
 
@@ -73,6 +80,8 @@ autocmd BufWritePost $MYVIMRC source $MYVIMRC
 """"""""""""""""""""""""
 " Environment settings "
 """"""""""""""""""""""""
+" Set leader key
+let mapleader = "\<Space>"
 " File type detection
 filetype on
 
@@ -178,14 +187,27 @@ set clipboard=unnamed
 " Enable backspace
 set backspace=indent,eol,start
 
+" Copy and paster hotkey
+vmap <Leader>y "+y
+vmap <Leader>d "+d
+nmap <Leader>p "+p
+nmap <Leader>P "+P
+vmap <Leader>p "+p
+vmap <Leader>P "+P
+
+" Automatically jump to end of text pasted
+vnoremap <silent> y y`]
+vnoremap <silent> p p`]
+nnoremap <silent> p p`]
+
 """"""""""""""
 " Navigation "
 """"""""""""""
 " Window splits navigation
-nnoremap <S-Up> <c-w>k
-nnoremap <S-Down> <c-w>j
-nnoremap <S-Left> <c-w>h
-nnoremap <S-Right> <c-w>l
+nnoremap <Leader><Up> <c-w>k
+nnoremap <Leader><Down> <c-w>j
+nnoremap <Leader><Left> <c-w>h
+nnoremap <Leader><Right> <c-w>l
 
 " Auto search tag file
 set tags=./tags,tags;$HOME
@@ -211,8 +233,8 @@ augroup END
 " Plugin settings "
 """""""""""""""""""
 " Nerdtree plugin settings
-nmap <silent> <Leader>ft :NERDTreeToggle<CR>
-let NERTTreeWinPos = "right"
+nmap <silent> <Leader>n :NERDTreeToggle<CR>
+let NERDTreeWinPos = "right"
 let NERDTreeWinSize = 32
 let NERDTreeShowHidden = 1
 let NERDTreeAutoDeleteBuffer = 1
@@ -230,7 +252,7 @@ let g:NERDTreeIndicatorMapCustom = {
     \ }
 
 " Tagbar plugin settings
-nmap <silent> <Leader>tt :TagbarToggle<CR>
+nmap <silent> <Leader>t :TagbarToggle<CR>
 let tagbar_left = 1
 let g:tagbar_ctags_bin = '/usr/local/bin/ctags'
 let g:tagbar_width = 32 
@@ -293,10 +315,6 @@ nnoremap <Leader>gf :YcmCompleter GoToDefinition<CR>
 nnoremap <Leader>ge :YcmCompleter GoToDefinitionElseDeclaration<CR>
 nmap <F4> :YcmDiags<CR>
 
-" Vim-cpp-enhanced-highlight settings
-let g:cpp_class_scope_hightlight = 1
-let g:cpp_experimental_template_highlight = 1
-
 " Nerdcommenter plugin settings
 let g:NERDSpaceDelims = 1
 let g:NERDCompactSexyComs = 1
@@ -309,10 +327,22 @@ let g:NERDTrimTrailingWhitespace = 1
 " Ctrlp plugin settings
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlPMixed'
+nnoremap <Leader>o :CtrlPMixed<CR>
 let g:ctrlp_working_path_mode = 'ra'
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 let g:ctrlp_reuse_window = 'startify'
+let g:ctrlp_use_caching = 0
+if executable('ag')
+        set grepprg=ag\ --nogroup\ --nocolor
+
+            let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+        else
+              let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
+                let g:ctrlp_prompt_mappings = {
+                    \ 'AcceptSelection("e")': ['<space>', '<cr>', '<2-LeftMouse>'],
+                    \ }
+            endif
 
 " vim-fswitch plugin settings
 nmap <silent> <Leader>sw :FSHere<CR>
@@ -325,3 +355,28 @@ let g:solarized_contrast = "high"
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_start_level = 2
 let g:indent_guides_guide_size = 1
+
+" Vim-airline plugin settings
+let g:airline_theme='powerlineish'
+let g:airline_left_sep=''
+let g:airline_right_sep=''
+let g:airline_section_z=''
+
+" Vim-expand-region
+vmap v <Plug>(expand_region_expand)
+vmap <C-v> <Plug>(expand_region_shrink)
+
+" Color_coded plugin settings
+let g:color_coded_filetype = ['c', 'cpp', 'objc']
+
+" Prevent replacing paste buffer on paste (place this to end of vimrc)
+" vp doesn't replace paste buffer
+function! RestoreRegister()
+    let @" = s:restore_reg
+    return ''
+endfunction
+function! s:Repl()
+    let s:restore_reg = @"
+    return "p@=RestoreRegister()\<cr>"
+endfunction
+vmap <silent> <expr> p <sid>Repl()
