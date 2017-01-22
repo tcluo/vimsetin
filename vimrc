@@ -71,6 +71,9 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 " libclang-based highlighting in C/C++
 Plug 'jeaye/color_coded'
 
+" C++ highlighting
+Plug 'octol/vim-cpp-enhanced-highlight'
+
 " Initialize plugin system
 call plug#end()
 
@@ -348,8 +351,7 @@ if executable('ag')
 nmap <silent> <Leader>sw :FSHere<CR>
 
 " Solorized plugin settings
-let g:solarized_visibility = "high"
-let g:solarized_contrast = "high"
+let g:solarized_termtrans = 1
 
 " Vim-indent-guides plugin settings
 let g:indent_guides_enable_on_vim_startup = 1
