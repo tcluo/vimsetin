@@ -54,7 +54,8 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
 " Color scheme
-Plug 'altercation/vim-colors-solarized'
+"Plug 'altercation/vim-colors-solarized'
+Plug 'tomasr/molokai'
 
 " Switch between companion source files
 Plug 'derekwyatt/vim-fswitch'
@@ -144,7 +145,8 @@ syntax on
 
 " Set color scheme
 set background=dark
-colorscheme solarized
+"colorscheme solarized
+colorscheme molokai
 if has('gui_running')
     set background=light
 else
@@ -352,6 +354,10 @@ nmap <silent> <Leader>sw :FSHere<CR>
 
 " Solorized plugin settings
 let g:solarized_termtrans = 1
+
+" Molokai plugin settings
+let g:molokai_original = 1
+let g:rehash256 = 1
 
 " Vim-indent-guides plugin settings
 let g:indent_guides_enable_on_vim_startup = 1
