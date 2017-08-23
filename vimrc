@@ -54,8 +54,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
 " Color scheme
-"Plug 'altercation/vim-colors-solarized'
-Plug 'tomasr/molokai'
+Plug 'altercation/vim-colors-solarized'
 
 " Switch between companion source files
 Plug 'derekwyatt/vim-fswitch'
@@ -74,6 +73,18 @@ Plug 'jeaye/color_coded'
 
 " C++ highlighting
 Plug 'octol/vim-cpp-enhanced-highlight'
+
+" Color scheme
+Plug 'fatih/molokai'
+
+" Fast and easy find and replace across multiple files
+Plug 'dkprice/vim-easygrep'
+
+" gocode
+Plug 'nsf/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
+
+" Asynchronous build and test dispatcher
+Plug 'tpope/vim-dispatch'
 
 " Initialize plugin system
 call plug#end()
@@ -388,3 +399,37 @@ function! s:Repl()
     return "p@=RestoreRegister()\<cr>"
 endfunction
 vmap <silent> <expr> p <sid>Repl()
+
+" Vim-go plugin settings
+map <C-n> :cnext<CR>
+map <C-m> :cprevious<CR>
+nnoremap <leader>a :cclose<CR>
+autocmd FileType go nmap <leader>r <Plug>(go-run)
+autocmd FileType go nmap <leader>t <Plug>(go-test)
+function! s:build_go_files()
+  let l:file = expand('%')
+  if l:file =~# '^\f\+_test\.go$'
+    call go#test#Test(0, 1)
+  elseif l:file =~# '^\f\+\.go$'
+    call go#cmd#Build(0)
+  endif
+endfunction
+
+autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
+autocmd FileType go nmap <leader>c <Plug>(go-coverage-toggle)
+let g:go_fmt_command = "goimports"
+let g:go_highlight_types = 1
+let g:go_higjlight_fields = 1
+let g:go_higjlight_functions = 1
+let g:go_higjlight_methods = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_build_constraints = 1
+
+autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
+autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
+autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
+autocmd Filetype go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
+
+let g:go_def_mode = 'godef'
+let g:go_decls_includes = "func,type"
