@@ -40,3 +40,5 @@ Thumbs.db
 #############
 .ycm_extra_conf.pyc
 plugged
+ftplugin
+autoload
