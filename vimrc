@@ -95,8 +95,8 @@ autocmd BufWritePost $MYVIMRC source $MYVIMRC
 """"""""""""""""""""""""
 " Environment settings "
 """"""""""""""""""""""""
-" Set leader key
-let mapleader = "\<Space>"
+" Set leader key to space
+let mapleader = " "
 " File type detection
 filetype on
 
@@ -308,14 +308,9 @@ let g:tagbar_type_cpp = {
 \ }
 
 " Easymotion plugin settings
-let g:EasyMotion_leader_key = '<Space>'
-"map  <Leader>f <Plug>(easymotion-bd-f)
-"nmap <Leader>f <Plug>(easymotion-overwin-f)
-"nmap s <Plug>(easymotion-overwin-f2)
-"map <Leader>L <Plug>(easymotion-bd-jk)
-"nmap <Leader>L <Plug>(easymotion-overwin-line)
-"map  <Leader>w <Plug>(easymotion-bd-w)
-"nmap <Leader>w <Plug>(easymotion-overwin-w)
+map / <Plug>(easymotion-sn)
+map n <Plug>(easymotion-next)
+map N <Plug>(easymotion-prev)
 
 " Youcompleteme plugin settings
 let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
