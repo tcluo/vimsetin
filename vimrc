@@ -203,14 +203,6 @@ set clipboard=unnamed
 " Enable backspace
 set backspace=indent,eol,start
 
-" Copy and paster hotkey
-vmap <Leader>y "+y
-vmap <Leader>d "+d
-nmap <Leader>p "+p
-nmap <Leader>P "+P
-vmap <Leader>p "+p
-vmap <Leader>P "+P
-
 " Automatically jump to end of text pasted
 vnoremap <silent> y y`]
 vnoremap <silent> p p`]
