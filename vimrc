@@ -22,9 +22,6 @@ Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
 " Using a tagged release; wildcard allowed (requires git 1.9.2 or above)
 Plug 'fatih/vim-go', { 'tag': '*' }
 
-" Plugin options
-Plug 'nsf/gocode', { 'tag': 'v.20150303', 'rtp': 'vim' }
-
 " Plugin outside ~/.vim/plugged with post-update hook
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 
@@ -56,11 +53,8 @@ Plug 'vim-airline/vim-airline-themes'
 " Color scheme
 Plug 'altercation/vim-colors-solarized'
 
-" Switch between companion source files
-Plug 'derekwyatt/vim-fswitch'
-
-" Visually display indent levels in code
-Plug 'nathanaelkane/vim-indent-guides'
+" A vim plugin to display the indention levels with thin vertical lines
+Plug 'Yggdroot/indentLine'
 
 " Visually select regions
 Plug 'terryma/vim-expand-region'
@@ -97,6 +91,7 @@ autocmd BufWritePost $MYVIMRC source $MYVIMRC
 """"""""""""""""""""""""
 " Set leader key to space
 let mapleader = " "
+
 " File type detection
 filetype on
 
@@ -168,7 +163,7 @@ endif
 " Formatting "
 """"""""""""""
 " Smart indent for different file type
-filetype indent on
+filetype plugin indent on
 
 " To insert space characters whenever the tab key is pressed 
 set expandtab
@@ -258,6 +253,9 @@ let g:NERDTreeIndicatorMapCustom = {
     \ "Clean"     : "✔︎",
     \ "Unknown"   : "?"
     \ }
+
+" indentLine plugin settings
+let g:indentLine_char = '¦'
 
 " Tagbar plugin settings
 nmap <silent> <Leader>t :TagbarToggle<CR>
@@ -357,11 +355,6 @@ let g:solarized_termtrans = 1
 let g:molokai_original = 1
 let g:rehash256 = 1
 
-" Vim-indent-guides plugin settings
-let g:indent_guides_enable_on_vim_startup = 1
-let g:indent_guides_start_level = 2
-let g:indent_guides_guide_size = 1
-
 " Vim-airline plugin settings
 let g:airline_theme='powerlineish'
 let g:airline_left_sep=''
@@ -370,7 +363,7 @@ let g:airline_section_z=''
 
 " Vim-expand-region
 vmap v <Plug>(expand_region_expand)
-vmap <C-v> <Plug>(expand_region_shrink)
+vmap V <Plug>(expand_region_shrink)
 
 " Color_coded plugin settings
 let g:color_coded_filetype = ['c', 'cpp', 'objc']
