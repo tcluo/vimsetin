@@ -62,9 +62,6 @@ Plug 'terryma/vim-expand-region'
 " Showing git status flags
 Plug 'Xuyuanp/nerdtree-git-plugin'
 
-" libclang-based highlighting in C/C++
-Plug 'jeaye/color_coded'
-
 " C++ highlighting
 Plug 'octol/vim-cpp-enhanced-highlight'
 
@@ -364,9 +361,6 @@ let g:airline_section_z=''
 " Vim-expand-region
 vmap v <Plug>(expand_region_expand)
 vmap V <Plug>(expand_region_shrink)
-
-" Color_coded plugin settings
-let g:color_coded_filetype = ['c', 'cpp', 'objc']
 
 " Prevent replacing paste buffer on paste (place this to end of vimrc)
 " vp doesn't replace paste buffer
