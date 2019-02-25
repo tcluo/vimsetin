@@ -31,8 +31,6 @@ Plug '~/my-prototype-plugin'
 "***********************
 "* Plugins added by me * 
 "***********************
-" A class outline viewer for Vim
-Plug 'majutsushi/tagbar'
 
 " A code-completion engine for Vim
 Plug 'Valloric/YouCompleteMe'
@@ -40,18 +38,12 @@ Plug 'Valloric/YouCompleteMe'
 " Comment funtions
 Plug 'scrooloose/nerdcommenter'
 
-" Full path fuzzy finder for Vim
-Plug 'ctrlpvim/ctrlp.vim'
-
 " Vim motion on speed
 Plug 'easymotion/vim-easymotion'
 
 " Vim airline
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-
-" Color scheme
-Plug 'altercation/vim-colors-solarized'
 
 " A vim plugin to display the indention levels with thin vertical lines
 Plug 'Yggdroot/indentLine'
@@ -66,7 +58,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'octol/vim-cpp-enhanced-highlight'
 
 " Color scheme
-Plug 'fatih/molokai'
+Plug 'chriskempson/vim-tomorrow-theme'
 
 " Fast and easy find and replace across multiple files
 Plug 'dkprice/vim-easygrep'
@@ -76,6 +68,9 @@ Plug 'nsf/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' 
 
 " Asynchronous build and test dispatcher
 Plug 'tpope/vim-dispatch'
+
+" fzf
+Plug 'junegunn/fzf.vim' 
 
 " Initialize plugin system
 call plug#end()
@@ -147,9 +142,7 @@ syntax enable
 syntax on
 
 " Set color scheme
-set background=dark
-"colorscheme solarized
-colorscheme molokai
+colorscheme Tomorrow-Night-Eighties
 if has('gui_running')
     set background=light
 else
@@ -209,31 +202,47 @@ nnoremap <Leader><Down> <c-w>j
 nnoremap <Leader><Left> <c-w>h
 nnoremap <Leader><Right> <c-w>l
 
-" Auto search tag file
-set tags=./tags,tags;$HOME
-
-" Cscope auotloading
-function! LoadCscope()
-  let db = findfile("cscope.out", ".;")
-  if (!empty(db))
-    let path = strpart(db, 0, match(db, "/cscope.out$"))
-	set nocscopeverbose " suppress 'duplicate connection' error
-	exe "cs add " . db . " " . path
-	set cscopeverbose
-  endif
-endfunction
-au BufEnter /* call LoadCscope()
-set cscopequickfix=s-,c-,d-,i-,t-,e-
-augroup qf
-	autocmd!
-	autocmd QuickFixCmdPost * cwindow
-augroup END
-
 """""""""""""""""""
 " Plugin settings "
 """""""""""""""""""
+" fzf.vim plugin settings 
+" This is the default extra key bindings
+let g:fzf_action = {
+  \ 'ctrl-d': 'split',
+  \ 'ctrl-x': 'vsplit' }
+
+" Default fzf layout
+" - down / up / left / right
+let g:fzf_layout = { 'down': '~40%' }
+
+" Customize fzf colors to match your color scheme
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+
+" Enable per-command history.
+" CTRL-N and CTRL-P will be automatically bound to next-history and
+" previous-history instead of down and up. If you don't like the change,
+" explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
+let g:fzf_history_dir = '~/.local/share/fzf-history'
+
+nmap <silent> <Leader>p :Files<CR>
+nmap <silent> <Leader>f :Rg<CR>
+nmap <silent> <Leader>F :Rg <C-R><C-W><CR>
+
 " Nerdtree plugin settings
-nmap <silent> <Leader>n :NERDTreeToggle<CR>
+nnoremap <silent> <Leader>n :NERDTreeToggle<CR>
 let NERDTreeWinPos = "right"
 let NERDTreeWinSize = 32
 let NERDTreeShowHidden = 1
@@ -254,50 +263,10 @@ let g:NERDTreeIndicatorMapCustom = {
 " indentLine plugin settings
 let g:indentLine_char = '¦'
 
-" Tagbar plugin settings
-nmap <silent> <Leader>t :TagbarToggle<CR>
-let tagbar_left = 1
-let g:tagbar_ctags_bin = '/usr/local/bin/ctags'
-let g:tagbar_width = 32 
-let g:tagbar_compact=1
-let g:tagbar_type_cpp = {
-     \ 'kinds' : [
-            \ 'c:classes:0:1',
-            \ 'd:macros:0:1',
-            \ 'e:enumerators:0:0', 
-            \ 'f:functions:0:1',
-            \ 'g:enumeration:0:1',
-            \ 'l:local:0:1',
-            \ 'm:members:0:1',
-            \ 'n:namespaces:0:1',
-            \ 'p:functions_prototypes:0:1',
-            \ 's:structs:0:1',
-            \ 't:typedefs:0:1',
-            \ 'u:unions:0:1',
-            \ 'v:global:0:1',
-            \ 'x:external:0:1'
-    \ ],
-    \ 'sro' : '::',
-    \ 'kind2scope' : {
-            \ 'g' : 'enum',
-            \ 'n' : 'namespace',
-            \ 'c' : 'class',
-            \ 's' : 'struct',
-            \ 'u' : 'union'
-    \ },
-    \ 'scope2kind' : {
-            \ 'enum' : 'g',
-            \ 'namespace' : 'n',
-            \ 'class' : 'c',
-            \ 'struct' : 's',
-            \ 'union' : 'u'
-    \ }
-\ }
-
 " Easymotion plugin settings
-map / <Plug>(easymotion-sn)
-map n <Plug>(easymotion-next)
-map N <Plug>(easymotion-prev)
+nmap / <Plug>(easymotion-sn)
+nmap n <Plug>(easymotion-next)
+nmap N <Plug>(easymotion-prev)
 
 " Youcompleteme plugin settings
 let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
@@ -322,35 +291,8 @@ let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
 let g:NERDCommentEmptyLines = 1
 let g:NERDTrimTrailingWhitespace = 1
 
-" Ctrlp plugin settings
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlPMixed'
-nnoremap <Leader>o :CtrlPMixed<CR>
-let g:ctrlp_working_path_mode = 'ra'
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip
-let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
-let g:ctrlp_reuse_window = 'startify'
-let g:ctrlp_use_caching = 0
-if executable('ag')
-        set grepprg=ag\ --nogroup\ --nocolor
-
-            let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-        else
-              let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
-                let g:ctrlp_prompt_mappings = {
-                    \ 'AcceptSelection("e")': ['<space>', '<cr>', '<2-LeftMouse>'],
-                    \ }
-            endif
-
 " vim-fswitch plugin settings
 nmap <silent> <Leader>sw :FSHere<CR>
-
-" Solorized plugin settings
-let g:solarized_termtrans = 1
-
-" Molokai plugin settings
-let g:molokai_original = 1
-let g:rehash256 = 1
 
 " Vim-airline plugin settings
 let g:airline_theme='powerlineish'
