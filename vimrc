@@ -54,14 +54,11 @@ Plug 'terryma/vim-expand-region'
 " Showing git status flags
 Plug 'Xuyuanp/nerdtree-git-plugin'
 
-" C++ highlighting
+" C family highlighting
 Plug 'octol/vim-cpp-enhanced-highlight'
 
 " Color scheme
 Plug 'chriskempson/vim-tomorrow-theme'
-
-" Fast and easy find and replace across multiple files
-Plug 'dkprice/vim-easygrep'
 
 " gocode
 Plug 'nsf/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
@@ -70,7 +67,10 @@ Plug 'nsf/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' 
 Plug 'tpope/vim-dispatch'
 
 " fzf
-Plug 'junegunn/fzf.vim' 
+Plug 'junegunn/fzf.vim'
+
+" Switch between header and source files
+Plug 'derekwyatt/vim-fswitch'
 
 " Initialize plugin system
 call plug#end()
@@ -201,6 +201,8 @@ nnoremap <Leader><Up> <c-w>k
 nnoremap <Leader><Down> <c-w>j
 nnoremap <Leader><Left> <c-w>h
 nnoremap <Leader><Right> <c-w>l
+nnoremap <Leader>> <c-i>
+nnoremap <Leader>< <c-o>
 
 """""""""""""""""""
 " Plugin settings "
@@ -237,9 +239,9 @@ let g:fzf_colors =
 " explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
 let g:fzf_history_dir = '~/.local/share/fzf-history'
 
-nmap <silent> <Leader>p :Files<CR>
-nmap <silent> <Leader>f :Rg<CR>
-nmap <silent> <Leader>F :Rg <C-R><C-W><CR>
+nnoremap <silent> <Leader>p :Files<CR>
+nnoremap <silent> <Leader>f :Rg<CR>
+nnoremap <silent> <Leader>F :Rg <C-R><C-W><CR>
 
 " Nerdtree plugin settings
 nnoremap <silent> <Leader>n :NERDTreeToggle<CR>
@@ -263,11 +265,6 @@ let g:NERDTreeIndicatorMapCustom = {
 " indentLine plugin settings
 let g:indentLine_char = '¦'
 
-" Easymotion plugin settings
-nmap / <Plug>(easymotion-sn)
-nmap n <Plug>(easymotion-next)
-nmap N <Plug>(easymotion-prev)
-
 " Youcompleteme plugin settings
 let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
 let g:ycm_confirm_extra_conf = 0
@@ -280,7 +277,7 @@ nnoremap <Leader>gi :YcmCompleter GoToInclude<CR>
 nnoremap <Leader>gd :YcmCompleter GoToDeclaration<CR>
 nnoremap <Leader>gf :YcmCompleter GoToDefinition<CR>
 nnoremap <Leader>ge :YcmCompleter GoToDefinitionElseDeclaration<CR>
-nmap <F4> :YcmDiags<CR>
+"nmap <F4> :YcmDiags<CR>
 
 " Nerdcommenter plugin settings
 let g:NERDSpaceDelims = 1
@@ -291,8 +288,14 @@ let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
 let g:NERDCommentEmptyLines = 1
 let g:NERDTrimTrailingWhitespace = 1
 
+" vim-cpp-enhanced-highlight plugin settings
+let g:cpp_class_scope_highlight = 1
+let g:cpp_member_variable_highlight = 1
+let g:cpp_class_decl_highlight = 1
+let g:cpp_experimental_template_highlight = 1
+
 " vim-fswitch plugin settings
-nmap <silent> <Leader>sw :FSHere<CR>
+nnoremap <silent> <F4> :FSHere<CR>
 
 " Vim-airline plugin settings
 let g:airline_theme='powerlineish'
