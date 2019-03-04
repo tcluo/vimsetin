@@ -35,11 +35,15 @@ Plug '~/my-prototype-plugin'
 " A code-completion engine for Vim
 Plug 'Valloric/YouCompleteMe'
 
+" c++ code navigation
+Plug 'lyuts/vim-rtags'
+
 " Comment funtions
 Plug 'scrooloose/nerdcommenter'
 
 " Vim motion on speed
 Plug 'easymotion/vim-easymotion'
+Plug 'haya14busa/incsearch.vim'
 
 " Vim airline
 Plug 'vim-airline/vim-airline'
@@ -122,9 +126,6 @@ set cursorline
 " Search highlight
 set hlsearch
 
-" Toggle search highlight
-nnoremap <silent> <F8> :set hlsearch!<CR>
-
 " Switch off scroll bar
 set guioptions-=l
 set guioptions-=L
@@ -196,13 +197,21 @@ nnoremap <silent> p p`]
 """"""""""""""
 " Navigation "
 """"""""""""""
+
+" Line navigation
+nnoremap <S-Left> <Home>
+nnoremap <S-Right> <End>
+
 " Window splits navigation
-nnoremap <Leader><Up> <c-w>k
-nnoremap <Leader><Down> <c-w>j
-nnoremap <Leader><Left> <c-w>h
-nnoremap <Leader><Right> <c-w>l
-nnoremap <Leader>> <c-i>
-nnoremap <Leader>< <c-o>
+nnoremap <Leader>d <C-w>v
+nnoremap <Leader><S-d> <C-w>s
+nnoremap <Leader><Up> <C-w>k
+nnoremap <Leader><Down> <C-w>j
+nnoremap <Leader><Left> <C-w>h
+nnoremap <Leader><Right> <C-w>l
+
+" Go back
+nnoremap <S-F2> <C-o>
 
 """""""""""""""""""
 " Plugin settings "
@@ -210,8 +219,8 @@ nnoremap <Leader>< <c-o>
 " fzf.vim plugin settings 
 " This is the default extra key bindings
 let g:fzf_action = {
-  \ 'ctrl-d': 'split',
-  \ 'ctrl-x': 'vsplit' }
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-d': 'vsplit' }
 
 " Default fzf layout
 " - down / up / left / right
@@ -243,6 +252,19 @@ nnoremap <silent> <Leader>p :Files<CR>
 nnoremap <silent> <Leader>f :Rg<CR>
 nnoremap <silent> <Leader>F :Rg <C-R><C-W><CR>
 
+" incsearch plugin settings
+map / <Plug>(incsearch-forward)
+map ? <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
+nnoremap <Esc><Esc> :<C-u>nohlsearch<CR>
+let g:incsearch#auto_nohlsearch = 1
+map <F3> <Plug>(incsearch-nohl-n)
+map <S-F3> <Plug>(incsearch-nohl-N)
+map * <Plug>(incsearch-nohl-*)
+map # <Plug>(incsearch-nohl-#)
+map g* <Plug>(incsearch-nohl-g*)
+map g# <Plug>(incsearch-nohl-g#)
+
 " Nerdtree plugin settings
 nnoremap <silent> <Leader>n :NERDTreeToggle<CR>
 let NERDTreeWinPos = "right"
@@ -272,12 +294,9 @@ let g:ycm_error_symbol = '>>'
 let g:ycm_warning_symbol = '>*'
 let g:ycm_enable_diagnostic_signs = 0
 let g:ycm_enable_diagnostic_highlighting = 0
-nnoremap <Leader>] :YcmCompleter GoTo<CR>
-nnoremap <Leader>gi :YcmCompleter GoToInclude<CR>
-nnoremap <Leader>gd :YcmCompleter GoToDeclaration<CR>
-nnoremap <Leader>gf :YcmCompleter GoToDefinition<CR>
-nnoremap <Leader>ge :YcmCompleter GoToDefinitionElseDeclaration<CR>
-"nmap <F4> :YcmDiags<CR>
+
+" vim-rtags plugin settings
+nmap <F2> <Leader>rj
 
 " Nerdcommenter plugin settings
 let g:NERDSpaceDelims = 1
