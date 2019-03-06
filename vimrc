@@ -42,7 +42,6 @@ Plug 'lyuts/vim-rtags'
 Plug 'scrooloose/nerdcommenter'
 
 " Vim motion on speed
-Plug 'easymotion/vim-easymotion'
 Plug 'haya14busa/incsearch.vim'
 
 " Vim airline
@@ -198,20 +197,21 @@ nnoremap <silent> p p`]
 " Navigation "
 """"""""""""""
 
+set mouse=a
+
 " Line navigation
 nnoremap <S-Left> <Home>
 nnoremap <S-Right> <End>
 
 " Window splits navigation
-nnoremap <Leader>d <C-w>v
-nnoremap <Leader><S-d> <C-w>s
-nnoremap <Leader><Up> <C-w>k
-nnoremap <Leader><Down> <C-w>j
-nnoremap <Leader><Left> <C-w>h
-nnoremap <Leader><Right> <C-w>l
+map <Leader>d <C-w>v
+map <Leader><S-d> <C-w>s
 
 " Go back
 nnoremap <S-F2> <C-o>
+
+" GDB
+nnoremap <Leader>b :Break<CR>
 
 """""""""""""""""""
 " Plugin settings "
@@ -256,7 +256,6 @@ nnoremap <silent> <Leader>F :Rg <C-R><C-W><CR>
 map / <Plug>(incsearch-forward)
 map ? <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
-nnoremap <Esc><Esc> :<C-u>nohlsearch<CR>
 let g:incsearch#auto_nohlsearch = 1
 map <F3> <Plug>(incsearch-nohl-n)
 map <S-F3> <Plug>(incsearch-nohl-N)
@@ -306,6 +305,8 @@ let g:NERDAltDelims_java = 1
 let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
 let g:NERDCommentEmptyLines = 1
 let g:NERDTrimTrailingWhitespace = 1
+let g:NERDCreateDefaultMappings = 0
+map <Leader>/ <Plug>NERDCommenterToggle('n', 'Toggle')<CR>
 
 " vim-cpp-enhanced-highlight plugin settings
 let g:cpp_class_scope_highlight = 1
