@@ -103,12 +103,6 @@ set sessionoptions="blank,buffers,globals,localoptions,tabpages,sesdir,folds,hel
 set undodir=~/.undo_history
 set undofile
 
-" Save session hotkey
-map <leader>ss :mksession! my.vim<CR> :wviminfo! my.viminfo<CR>
-
-" Resume session hotkey
-map <leader>rs :source my.vim<CR> :rviminfo my.viminfo<CR>
-
 """"""""""""""
 " Visibility "
 """"""""""""""
@@ -183,7 +177,15 @@ set ignorecase
 set wildmenu
 
 " Copy to system clipboard
-set clipboard=unnamed
+if !exists("g:os")
+    let g:os = substitute(system('uname'), '\n', '', '')
+endif
+
+if g:os == "Linux"
+    set clipboard=unnamedplus
+else
+    set clipboard=unnamed
+endif
 
 " Enable backspace
 set backspace=indent,eol,start
@@ -193,15 +195,38 @@ vnoremap <silent> y y`]
 vnoremap <silent> p p`]
 nnoremap <silent> p p`]
 
+map <C-a> GVgg
+
+" Shortcut for terminal-normal mode to avoid mistakenly press <Cmd-w> to close
+" the terminal
+" https://vimhelp.org/terminal.txt.html
+tnoremap <Esc> <C-W>N
+set notimeout ttimeout timeoutlen=100
+
 """"""""""""""
 " Navigation "
 """"""""""""""
-
+" Enable mouse for window and inline navigation
 set mouse=a
 
-" Window splits navigation
-map <Leader>d <C-w>v
-map <Leader><S-d> <C-w>s
+" Line navigation. Macbook's keyboard shortcuts fn+<Arrow> are not easy to
+" press
+noremap <C-Up> <PageUp>
+noremap <C-Down> <PageDown>
+noremap <C-Left> <Home>
+noremap <C-Right> <End>
+
+inoremap <C-Up> <PageUp>
+inoremap <C-Down> <PageDown>
+inoremap <C-Left> <Home>
+inoremap <C-Right> <End>
+
+" Shortcuts for split and vsplit windows to avoid to mistakenly press <Cmd-w> to close the terminal
+nnoremap <C-d> <C-w>v
+nnoremap <C-x> <C-w>s
+
+" Open termdebug windows vertifcally
+let g:termdebug_wide = 0
 
 " Go back
 nnoremap <S-F2> <C-o>
