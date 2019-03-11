@@ -199,10 +199,6 @@ nnoremap <silent> p p`]
 
 set mouse=a
 
-" Line navigation
-nnoremap <S-Left> <Home>
-nnoremap <S-Right> <End>
-
 " Window splits navigation
 map <Leader>d <C-w>v
 map <Leader><S-d> <C-w>s
