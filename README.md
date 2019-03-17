@@ -15,8 +15,8 @@ $ brew install ripgrep
 # C/C++ Navigation
 ```
 # Follow https://github.com/Andersbakken/rtags to install rtags
-$ brew install install rtags
-$ brew seervices start rtags
+$ brew install rtags
+$ brew services start rtags
 
 # Generate compile_commands.json
 $ pip install scan-build
