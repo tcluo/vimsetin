@@ -71,6 +71,7 @@ Plug 'tpope/vim-dispatch'
 
 " fzf
 Plug 'junegunn/fzf.vim'
+Plug 'tweekmonster/fzf-filemru'
 
 " Switch between header and source files
 Plug 'derekwyatt/vim-fswitch'
@@ -201,8 +202,7 @@ map <C-a> GVgg
 " Shortcut for terminal-normal mode to avoid mistakenly press <Cmd-w> to close
 " the terminal
 " https://vimhelp.org/terminal.txt.html
-tnoremap <Esc> <C-W>N
-set notimeout ttimeout timeoutlen=100
+tnoremap <C-n> <C-W>N
 
 """"""""""""""
 " Navigation "
@@ -270,7 +270,7 @@ let g:fzf_colors =
 " explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
 let g:fzf_history_dir = '~/.local/share/fzf-history'
 
-nnoremap <silent> <Leader>p :Files<CR>
+nnoremap <silent> <Leader>p :FilesMru --tiebreak=end<CR>
 nnoremap <silent> <Leader>f :Rg<CR>
 nnoremap <silent> <Leader>F :Rg <C-R><C-W><CR>
 
