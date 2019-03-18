@@ -108,6 +108,7 @@ set undofile
 """"""""""""""
 " Display line number
 set number
+noremap <F5> :set invnumber<CR>
 
 " Display line number, the colume number, the virtual column number and the
 " relative position of the cursor in the file
