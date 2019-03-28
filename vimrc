@@ -42,7 +42,7 @@ Plug 'lyuts/vim-rtags'
 Plug 'scrooloose/nerdcommenter'
 
 " Vim motion on speed
-Plug 'haya14busa/incsearch.vim'
+Plug 'haya14busa/is.vim'
 
 " Vim airline
 Plug 'vim-airline/vim-airline'
@@ -199,6 +199,11 @@ nnoremap <silent> p p`]
 
 map <C-a> GVgg
 
+" unindent
+nnoremap <S-Tab> <<
+inoremap <S-Tab> <C-d>
+vnoremap <S-Tab> <<
+
 " Shortcut for terminal-normal mode to avoid mistakenly press <Cmd-w> to close
 " the terminal
 " https://vimhelp.org/terminal.txt.html
@@ -227,13 +232,20 @@ nnoremap <C-d> <C-w>v
 nnoremap <C-x> <C-w>s
 
 " Open termdebug windows vertifcally
-let g:termdebug_wide = 0
+"let g:termdebug_wide = 0
 
 " Go back
 nnoremap <S-F2> <C-o>
 
+" Move to the next occurrence
+map <F3> n
+map <S-F3> N
+
 " GDB
 nnoremap <Leader>b :Break<CR>
+
+" Highligh all occurrence
+nnoremap <Leader>f *
 
 """""""""""""""""""
 " Plugin settings "
@@ -271,20 +283,7 @@ let g:fzf_colors =
 let g:fzf_history_dir = '~/.local/share/fzf-history'
 
 nnoremap <silent> <Leader>p :FilesMru --tiebreak=end<CR>
-nnoremap <silent> <Leader>f :Rg<CR>
 nnoremap <silent> <Leader>F :Rg <C-R><C-W><CR>
-
-" incsearch plugin settings
-map / <Plug>(incsearch-forward)
-map ? <Plug>(incsearch-backward)
-map g/ <Plug>(incsearch-stay)
-let g:incsearch#auto_nohlsearch = 1
-map <F3> <Plug>(incsearch-nohl-n)
-map <S-F3> <Plug>(incsearch-nohl-N)
-map * <Plug>(incsearch-nohl-*)
-map # <Plug>(incsearch-nohl-#)
-map g* <Plug>(incsearch-nohl-g*)
-map g# <Plug>(incsearch-nohl-g#)
 
 " Nerdtree plugin settings
 nnoremap <silent> <Leader>n :NERDTreeToggle<CR>
