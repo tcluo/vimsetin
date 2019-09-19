@@ -130,6 +130,8 @@ set guioptions-=R
 " Open a vertical split on the right side
 set splitright
 
+set encoding=utf-8
+
 " Set font
 set guifont=Consolas
 
